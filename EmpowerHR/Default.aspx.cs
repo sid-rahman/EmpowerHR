@@ -29,6 +29,12 @@ namespace EmpowerHR
             EmployeeGridView.DataBind();
         }
 
+        protected void EmployeePageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            EmployeeGridView.PageIndex = e.NewPageIndex;
+            BindEmployeeGrid();
+        }
+
         protected void btnDeleteEmployee_Click(object sender, EventArgs e)
         {
             var btnDelete = (Button)sender;
@@ -36,6 +42,27 @@ namespace EmpowerHR
             da.DeleteEmployee(employeeId);
 
             BindEmployeeGrid();
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            var employeeId = int.Parse(modaluniqueId.Text);
+            var firstName = modalfirstName.Text;
+            var lastName = modallastName.Text;
+            var division = modaldivision.Text;
+            var building = modalbuilding.Text;
+            var title = modaltitle.Text;
+            var room = int.Parse(modalroom.Text);
+
+            da.UpdateEmployee(employeeId, firstName, lastName, division, building, title, room);
+            BindEmployeeGrid();
+        }
+
+        protected void btnSearchEmployee_Click(object sender, EventArgs e)
+        {
+            var employeeId = int.Parse(searchEmployeeId.Text);
+            EmployeeGridView.DataSource = da.GetEmployeeById(employeeId);
+            EmployeeGridView.DataBind();
         }
     }
 }

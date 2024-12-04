@@ -45,7 +45,7 @@ namespace EmpowerHR.Data
             return employee;
         }
 
-        public void UpdateEmployee(int id, string firstName, string lastName, string division, string title, int room)
+        public void UpdateEmployee(int id, string firstName, string lastName, string division, string building, string title, int room)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -57,6 +57,7 @@ namespace EmpowerHR.Data
                 cmd.Parameters.AddWithValue("@FirstName", firstName);
                 cmd.Parameters.AddWithValue("@LastName", lastName);
                 cmd.Parameters.AddWithValue("@Division", division);
+                cmd.Parameters.AddWithValue("@Building", building);
                 cmd.Parameters.AddWithValue("@Title", title);
                 cmd.Parameters.AddWithValue("@Room", room);
 

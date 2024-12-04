@@ -6,25 +6,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
+        $('#insertOrUpdate').on('hidden.bs.modal', function () {
+            $('#modalfirstName, #modallastName, #modaldivision, #modalbuilding').removeAttr('required');
+        });
 
+        $('#insertOrUpdate').on('shown.bs.modal', function () {
+            $('#modalfirstName, #modallastName, #modaldivision, #modalbuilding').attr('required', 'true');
+        });
     });
 
-    function updateEmployee(btn) {
+    function populateModal(btn) {     
         const selectedRow = $(btn).closest("tr");
-        const employeeId = selectedRow.find(".employee-id").text();
-        const firstName = selectedRow.find(".first-name").text();
-        const lastName = selectedRow.find(".last-name").text();
-        const division = selectedRow.find(".division").text();
-        const building = selectedRow.find(".building").text();
-        const title = selectedRow.find(".title").text();
-        const room = selectedRow.find(".room").text();
+        $('#<%= modaluniqueId.ClientID %>').val(selectedRow.find(".employee-id").text());
+        $('#<%= modalfirstName.ClientID %>').val(selectedRow.find(".first-name").text());
+        $('#<%= modallastName.ClientID %>').val(selectedRow.find(".last-name").text());
+        $('#<%= modaldivision.ClientID %>').val(selectedRow.find(".division").text());
+        $('#<%= modalbuilding.ClientID %>').val(selectedRow.find(".building").text());
+        $('#<%= modaltitle.ClientID %>').val(selectedRow.find(".title").text());
+        $('#<%= modalroom.ClientID %>').val(parseInt(selectedRow.find(".room").text()));
+
+        $('#insertOrUpdate').modal('show');
+
     }
 
 </script>
 
+    <div class="row mb-3">
+        <div class="col-md-6 text-end">
+            <div class="input-group" style="max-width: 300px;">
+                <asp:TextBox ID="searchEmployeeId" TextMode="Number" runat="server" CssClass="form-control" placeholder="Enter Employee ID"></asp:TextBox>
+                <asp:Button ID="btnSearchEmployee" runat="server" Text="Search" CssClass="btn btn-info text-white" OnClick="btnSearchEmployee_Click" />
+            </div>
+        </div>
+    </div>
+
   <asp:GridView ID="EmployeeGridView" runat="server" AutoGenerateColumns="False"
     ShowFooter="False" CssClass="table table-bordered text-center" HeaderStyle-BackColor="#76ABAE" HeaderStyle-ForeColor="White" 
-      AllowPaging="true" PageSize="5" PagerStyle-CssClass="pagination">
+      AllowPaging="true" OnPageIndexChanging="EmployeePageIndexChanging" PageSize="5" PagerStyle-CssClass="pagination">
     <Columns> 
      <asp:TemplateField HeaderText="Employee Id">
         <ItemTemplate>
@@ -65,12 +83,61 @@
     </asp:TemplateField>
   <asp:TemplateField HeaderText="Actions">
       <ItemTemplate>
-          <asp:Button ID="btnUpdateEmoloyee" runat="server" Text="Update" CssClass="btn btn-outline-primary" OnClientClick="updateEmployee(this)" />
+          <asp:Button ID="btnUpdateEmoloyee" runat="server" Text="Update" CssClass="btn btn-outline-primary" OnClientClick="populateModal(this); return false;" formnovalidate />
           <asp:Button ID="btnDeleteEmployee" runat="server" Text="Delete" CssClass="btn btn-outline-danger" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="btnDeleteEmployee_Click" />
       </ItemTemplate>
     </asp:TemplateField>
 
     </Columns>
+      <EmptyDataTemplate>
+        <tr>
+          <td class="text-start">No data available</td>
+        </tr>
+      </EmptyDataTemplate>
    </asp:GridView>
+
+<!-- Modal start-->
+<div class="modal fade" id="insertOrUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-md">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h1 id="modalTitle" class="modal-title fs-5">
+                Update Employee
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+
+            <asp:TextBox ID="modaluniqueId" CssClass="form-control mb-1" style="display:none;" runat="server" ClientIDMode="Static"/>
+
+            <label for="modalfirstName" class="fw-bold">First Name</label>
+            <asp:TextBox ID="modalfirstName" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+
+             <label for="modallastName" class="fw-bold">Last Name</label>
+            <asp:TextBox ID="modallastName" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+
+            <label for="modaldivision" class="fw-bold">Division</label>
+            <asp:TextBox ID="modaldivision" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+
+            <label for="modalbuilding" class="fw-bold">Building</label>
+            <asp:TextBox ID="modalbuilding" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+
+            <label for="modaltitle" class="fw-bold">Title</label>
+            <asp:TextBox ID="modaltitle" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+
+            <label for="modalroom" class="fw-bold">Room</label>
+            <asp:TextBox ID="modalroom" type="number" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+
+         </div>
+
+         <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+            <asp:Button ID="btnSave" CssClass="btn btn-dark" Text=" Save " runat="server" OnClick="btnSave_Click" />
+         </div> 
+      </div>
+   </div>
+</div>
+
+<!-- Modal end -->
 
 </asp:Content>
