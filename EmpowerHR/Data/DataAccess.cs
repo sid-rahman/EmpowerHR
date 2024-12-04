@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Web;
-using EmpowerHR.Interfaces;
 
-namespace EmpowerHR.Repositories
+namespace EmpowerHR.Data
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class DataAccess
     {
         private string _connectionString = ConfigurationManager.ConnectionStrings["HRConnectionString"].ConnectionString;
         public DataTable ListAllEmployees()
