@@ -46,7 +46,7 @@ namespace EmpowerHR
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            var employeeId = int.Parse(modaluniqueId.Text);
+            var employeeId = string.IsNullOrWhiteSpace(modaluniqueId.Text) ? 0 : int.Parse(modaluniqueId.Text);
             var firstName = modalfirstName.Text;
             var lastName = modallastName.Text;
             var division = modaldivision.Text;
@@ -60,7 +60,7 @@ namespace EmpowerHR
 
         protected void btnSearchEmployee_Click(object sender, EventArgs e)
         {
-            var employeeId = int.Parse(searchEmployeeId.Text);
+            var employeeId = string.IsNullOrWhiteSpace(searchEmployeeId.Text) ? 0 : int.Parse(searchEmployeeId.Text);
             EmployeeGridView.DataSource = da.GetEmployeeById(employeeId);
             EmployeeGridView.DataBind();
         }

@@ -7,15 +7,16 @@
 <script>
     $(document).ready(function () {
         $('#insertOrUpdate').on('hidden.bs.modal', function () {
-            $('#modalfirstName, #modallastName, #modaldivision, #modalbuilding').removeAttr('required');
+            $('.modalInputField').removeAttr('required');
         });
 
         $('#insertOrUpdate').on('shown.bs.modal', function () {
-            $('#modalfirstName, #modallastName, #modaldivision, #modalbuilding').attr('required', 'true');
+            $('.modalInputField').attr('required', 'true');
         });
     });
 
-    function populateModal(btn) {     
+    function dispalyUpdateEmployeeModal(btn) {  
+        $('#modalTitle').text('Update Employee');
         const selectedRow = $(btn).closest("tr");
         $('#<%= modaluniqueId.ClientID %>').val(selectedRow.find(".employee-id").text());
         $('#<%= modalfirstName.ClientID %>').val(selectedRow.find(".first-name").text());
@@ -26,22 +27,30 @@
         $('#<%= modalroom.ClientID %>').val(parseInt(selectedRow.find(".room").text()));
 
         $('#insertOrUpdate').modal('show');
+    }
 
+    function displayAddEmployeeModal(btn) {
+        $('#modalTitle').text('Add Employee');
+        $('.modalInputField').val('');
+        $('#insertOrUpdate').modal('show');
     }
 
 </script>
 
-    <div class="row mb-3">
-        <div class="col-md-6 text-end">
+    <div class="row mb-3 bg-gradient">
+        <div class="col-md-6">
+            <asp:Button ID="btnAddEmployee" runat="server" Text="Add New Employee" CssClass="btn btn-outline-primary" BorderStyle="Outset" OnClientClick="displayAddEmployeeModal(this); return false;" />
+        </div>
+        <div class="col-md-6 d-flex justify-content-end">
             <div class="input-group" style="max-width: 300px;">
-                <asp:TextBox ID="searchEmployeeId" TextMode="Number" runat="server" CssClass="form-control" placeholder="Enter Employee ID"></asp:TextBox>
-                <asp:Button ID="btnSearchEmployee" runat="server" Text="Search" CssClass="btn btn-info text-white" OnClick="btnSearchEmployee_Click" />
+                <asp:TextBox ID="searchEmployeeId" TextMode="Number" min="1" runat="server" CssClass="form-control" BorderStyle="Outset" placeholder="Enter Employee ID"></asp:TextBox>
+                <asp:Button ID="btnSearchEmployee" runat="server" Text="Search" CssClass="btn btn-success text-white" OnClick="btnSearchEmployee_Click" />
             </div>
         </div>
     </div>
 
   <asp:GridView ID="EmployeeGridView" runat="server" AutoGenerateColumns="False"
-    ShowFooter="False" CssClass="table table-bordered text-center" HeaderStyle-BackColor="#76ABAE" HeaderStyle-ForeColor="White" 
+    ShowFooter="False" CssClass="table table-bordered text-center" HeaderStyle-BackColor="#41464b" HeaderStyle-ForeColor="White" 
       AllowPaging="true" OnPageIndexChanging="EmployeePageIndexChanging" PageSize="5" PagerStyle-CssClass="pagination">
     <Columns> 
      <asp:TemplateField HeaderText="Employee Id">
@@ -83,8 +92,8 @@
     </asp:TemplateField>
   <asp:TemplateField HeaderText="Actions">
       <ItemTemplate>
-          <asp:Button ID="btnUpdateEmoloyee" runat="server" Text="Update" CssClass="btn btn-outline-primary" OnClientClick="populateModal(this); return false;" formnovalidate />
-          <asp:Button ID="btnDeleteEmployee" runat="server" Text="Delete" CssClass="btn btn-outline-danger" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="btnDeleteEmployee_Click" />
+          <asp:Button ID="btnUpdateEmoloyee" runat="server" Text="Update" CssClass="btn btn-outline-info" BorderStyle="Outset" OnClientClick="dispalyUpdateEmployeeModal(this); return false;" />
+          <asp:Button ID="btnDeleteEmployee" runat="server" Text="Delete" CssClass="btn btn-outline-danger" BorderStyle="Outset" CommandArgument='<%# Eval("EmployeeId") %>' OnClick="btnDeleteEmployee_Click" />
       </ItemTemplate>
     </asp:TemplateField>
 
@@ -97,7 +106,7 @@
    </asp:GridView>
 
 <!-- Modal start-->
-<div class="modal fade" id="insertOrUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade " id="insertOrUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
    <div class="modal-dialog modal-md">
       <div class="modal-content">
          <div class="modal-header">
@@ -108,25 +117,25 @@
          </div>
          <div class="modal-body">
 
-            <asp:TextBox ID="modaluniqueId" CssClass="form-control mb-1" style="display:none;" runat="server" ClientIDMode="Static"/>
+            <asp:TextBox ID="modaluniqueId" CssClass="form-control mb-1" style="display:none;" runat="server" />
 
             <label for="modalfirstName" class="fw-bold">First Name</label>
-            <asp:TextBox ID="modalfirstName" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+            <asp:TextBox ID="modalfirstName" CssClass="form-control mb-2 modalInputField" runat="server" />
 
              <label for="modallastName" class="fw-bold">Last Name</label>
-            <asp:TextBox ID="modallastName" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+            <asp:TextBox ID="modallastName" CssClass="form-control mb-2 modalInputField" runat="server" />
 
             <label for="modaldivision" class="fw-bold">Division</label>
-            <asp:TextBox ID="modaldivision" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+            <asp:TextBox ID="modaldivision" CssClass="form-control mb-2 modalInputField" runat="server" />
 
             <label for="modalbuilding" class="fw-bold">Building</label>
-            <asp:TextBox ID="modalbuilding" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+            <asp:TextBox ID="modalbuilding" CssClass="form-control mb-2 modalInputField" runat="server" />
 
             <label for="modaltitle" class="fw-bold">Title</label>
-            <asp:TextBox ID="modaltitle" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+            <asp:TextBox ID="modaltitle" CssClass="form-control mb-2 modalInputField" runat="server" />
 
             <label for="modalroom" class="fw-bold">Room</label>
-            <asp:TextBox ID="modalroom" type="number" CssClass="form-control mb-2" runat="server" ClientIDMode="Static"/>
+            <asp:TextBox ID="modalroom" type="number" CssClass="form-control mb-2 modalInputField" runat="server" />
 
          </div>
 
@@ -137,7 +146,6 @@
       </div>
    </div>
 </div>
-
 <!-- Modal end -->
 
 </asp:Content>
