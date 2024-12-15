@@ -1,43 +1,55 @@
-# EmpowerHR
 
-**EmpowerHR** is an application designed to streamline HR operations, providing HR professionals with efficient access to employee information and updates.
+# CoffeeTrip ☕️
+An online coffee shop application built with ASP.NET MVC, C#, and Entity Framework. CoffeeTrip allows users to explore, order, and enjoy their favorite coffee with ease.  
+
 
 ---
 
 ## Features
-
-- **Home Page**: A dashboard offering an overview of employee data and updates.
-- **Search Employee by ID**: Quickly locate employees using their unique ID.
-- **Add New Employee**: Simplified interface for onboarding new employees.
-- **Update Employee Details**: Effortlessly update existing employee information.
-- **Delete Employee**: Easy deletion of existing employee.
+- User registration and login with ASP.NET Identity Framework.
+- Browse coffee products with detailed descriptions.
+- Add products to the cart and proceed with checkout.
+- Manage inventory and orders (Admin dashboard).
+- Responsive design using Bootstrap.
 
 ---
 
-## Application Screenshots
+## Usage
+- Register or log in to your account.
+- Browse the coffee catalog.
+- Add your favorite items to the cart.
+- Proceed to checkout and place your order.
+- (Admin) Manage inventory and orders in the admin dashboard.
 
+---
+
+## Screenshots
+
+<div align="center">
+  
 ### Home Page
-![Home Page](https://github.com/user-attachments/assets/ef5e92ba-2668-4025-b2f7-2775fa12fd9e)
+<img src="https://github.com/user-attachments/assets/638a4952-768d-4e6d-b8ea-cc4b12cbc5d2" alt="Home Page" width="800">
 
----
+### Shop Page
+<img src="https://github.com/user-attachments/assets/e92d78ea-a085-4dfb-96d8-acdd15b9cefd" alt="Shop Page" width="800">
 
-### Search Employee by ID
-![Search Employee by ID](https://github.com/user-attachments/assets/b2f028a1-5630-4306-ab4f-c189ac246fd6)
+### Details Page
+<img src="https://github.com/user-attachments/assets/85b2ded6-4fb3-4c40-86a9-37c1d4407806" alt="Details Page" width="800">
 
----
+### View Cart Page
+<img src="https://github.com/user-attachments/assets/1d206380-974a-47e0-9a05-3c6ff81d4265" alt="View Cart Page" width="800">
 
-### Add New Employee
-![Add New Employee](https://github.com/user-attachments/assets/ba1e4e79-fd03-4cef-9076-85ad445ed0d2)
+### Checkout Page
+<img src="https://github.com/user-attachments/assets/0588a40c-a7e2-4888-988e-5ce69371db13" alt="Checkout Page" width="800">
 
----
-
-### Update Employee Details
-![Update Employee Details](https://github.com/user-attachments/assets/39cf4af1-41d5-46e8-88e6-e316b539c1e0)
+### Order Placed Page
+<img src="https://github.com/user-attachments/assets/ad28fba1-99ae-428e-94e0-dec4f7fc2da9" alt="Order Placed Page" width="800">
+</div>
 
 ---
 
 ## Technologies Used
-
-- **Frontend**: HTML, CSS, Bootstrap, JavaScript
-- **Backend**: ASP.NET, ADO.NET, C#
-- **Database**: SQL Server
+- **Backend:** C#, ASP.NET MVC, Entity Framework, SQL Server
+- **Frontend:** Bootstrap, JavaScript, HTML, CSS
+- **Authentication:** ASP.NET Identity Framework
+- **Database:** SQL Server
